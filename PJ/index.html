@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="theme-color" content="#4F46E5" />
+    <title>QuickTask — Microjobs pour étudiants</title>
+    <meta name="description"
+        content="QuickTask : découvrez et postulez à des microjobs près de chez vous en quelques secondes." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ====================== AUTH SCREENS ====================== -->
+    <div id="screen-splash" class="screen screen-auth active" style="background:#0F172A;">
+        <div class="splash-bg"
+            style="background-image:url('hero.png'); background-size:cover; background-position:center top; opacity:0.45;">
+        </div>
+        <div class="splash-content">
+            <div class="splash-logo">
+                <img src="hero.png"
+                    style="width:160px; height:160px; border-radius:32px; margin-bottom:20px; box-shadow:0 12px 40px rgba(0,0,0,0.5); object-fit:cover; object-position:top;">
+                <h1 class="splash-title">Mon Gombo</h1>
+                <p class="splash-tagline">Les meilleurs talents étudiants pour tes missions de tous les jours</p>
+            </div>
+            <div class="splash-actions">
+                <button class="btn btn-primary btn-full" id="splashDemo">⚡ Démo (Mode Rapide)</button>
+                <button class="btn btn-outline btn-full" id="splashLogin">Se connecter</button>
+                <button class="btn btn-outline btn-full" id="splashSignupBtn"
+                    style="border-color:rgba(255,255,255,0.25);font-size:0.88rem">S'inscrire</button>
+                <p class="splash-note">La première plateforme de micro-jobs étudiante en CI</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-login" class="screen screen-auth">
+        <div class="auth-header">
+            <button class="btn-back" id="loginBack">←</button>
+            <h2>Connexion</h2>
+        </div>
+        <div class="auth-body">
+            <div class="auth-hero">
+                <span>👋</span>
+                <h3>Bon retour !</h3>
+                <p>Connecte-toi pour accéder à tes missions</p>
+            </div>
+            <form id="loginForm" class="form-stack">
+                <div class="field-group">
+                    <label>Téléphone</label>
+                    <input type="tel" id="loginEmail" placeholder="07 00 00 00 00" inputmode="numeric" maxlength="10"
+                        autocomplete="tel" />
+                    <span class="field-error" id="loginEmailErr"></span>
+                </div>
+                <div class="field-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
+                    <span class="field-error" id="loginPasswordErr"></span>
+                </div>
+                <p style="font-size:0.75rem;color:#94A3B8;text-align:center">🎮 Mode démo : tous identifiants acceptés
+                </p>
+                <button type="submit" class="btn btn-primary btn-full">Se connecter ⚡</button>
+            </form>
+            <p class="auth-switch">Pas encore de compte ? <a id="goSignup">Créer un compte →</a></p>
+        </div>
+    </div>
+
+    <div id="screen-role" class="screen screen-auth">
+        <div class="auth-header">
+            <button class="btn-back" id="roleBack">←</button>
+            <h2>S'inscrire</h2>
+        </div>
+        <div class="auth-body">
+            <div class="auth-hero" style="margin-bottom:30px">
+                <span>🎯</span>
+                <h3>Comment veux-tu utiliser Mon Gombo ?</h3>
+                <p>Choisis ton profil pour continuer</p>
+            </div>
+
+            <div class="role-selector" id="roleStudent"
+                style="background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;gap:16px;box-shadow:var(--shadow-sm)">
+                <div
+                    style="font-size:2rem;background:var(--primary-l);width:60px;height:60px;border-radius:50px;display:flex;align-items:center;justify-content:center;color:var(--primary)">
+                    🎓</div>
+                <div>
+                    <h4 style="margin-bottom:4px">Je suis un Étudiant</h4>
+                    <p style="font-size:0.82rem;color:var(--text3)">Je cherche des missions pour gagner de l'argent</p>
+                </div>
+            </div>
+
+            <div class="role-selector" id="roleSme"
+                style="background:var(--card);border:2px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;cursor:pointer;transition:all var(--tr);display:flex;align-items:center;gap:16px;box-shadow:var(--shadow-sm)">
+                <div
+                    style="font-size:2rem;background:var(--success-l);width:60px;height:60px;border-radius:50px;display:flex;align-items:center;justify-content:center;color:var(--success)">
+                    🏢</div>
+                <div>
+                    <h4 style="margin-bottom:4px">Je suis une PME / Pro</h4>
+                    <p style="font-size:0.82rem;color:var(--text3)">Je cherche des talents pour m'aider</p>
+                </div>
+            </div>
+
+            <p class="auth-switch" style="margin-top:auto">Déjà un compte ? <a id="goLoginFromRole">Se connecter →</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- STUDENT SIGNUP -->
+    <div id="screen-signup-student" class="screen screen-auth">
+        <div class="auth-header">
+            <button class="btn-back" id="signupStudentBack">←</button>
+            <h2>Profil Étudiant</h2>
+        </div>
+        <div class="auth-body">
+            <form id="signupStudentForm" class="form-stack">
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Prénom</label>
+                        <input type="text" id="studFirst" placeholder="Kouamé" required inputmode="text"
+                            autocomplete="given-name" />
+                        <span class="field-error" id="studFirstErr"></span>
+                    </div>
+                    <div class="field-group">
+                        <label>Nom</label>
+                        <input type="text" id="studLast" placeholder="Assi" required inputmode="text"
+                            autocomplete="family-name" />
+                        <span class="field-error" id="studLastErr"></span>
+                    </div>
+                </div>
+
+                <!-- Téléphone + Opérateur -->
+                <div class="field-group">
+                    <label>Téléphone Mobile Money</label>
+                    <input type="tel" id="studPhone" placeholder="07 00 00 00 00" required inputmode="numeric"
+                        maxlength="10" autocomplete="tel" />
+                    <span class="field-error" id="studPhoneErr"></span>
+                </div>
+                <!-- Sélecteur opérateur Orange / Wave -->
+                <div class="field-group">
+                    <label>Réseau de paiement</label>
+                    <div class="operator-selector" id="operatorSelector">
+                        <button type="button" class="operator-btn active" data-op="orange" id="opOrange">
+                            <span class="op-dot" style="background:#FF6600"></span>
+                            Orange Money
+                        </button>
+                        <button type="button" class="operator-btn" data-op="wave" id="opWave">
+                            <span class="op-dot" style="background:#0198D5"></span>
+                            Wave Money
+                        </button>
+                    </div>
+                    <input type="hidden" id="studOperator" value="orange" />
+                </div>
+
+                <div class="field-group">
+                    <label>Ville & Quartier</label>
+                    <input type="text" id="studCity" list="ci-cities" placeholder="Ex: Abidjan, Cocody"
+                        autocomplete="off" required />
+                </div>
+                <!-- Docs -->
+                <div class="field-group"
+                    style="background:var(--bg);padding:12px;border-radius:var(--radius-sm);border:1px dashed var(--primary)">
+                    <label style="color:var(--primary);margin-bottom:8px">📸 Photo de profil (Obligatoire)</label>
+                    <input type="file" id="studPhoto" accept="image/*" required style="font-size:0.8rem" />
+                </div>
+                <div class="field-group"
+                    style="background:var(--bg);padding:12px;border-radius:var(--radius-sm);border:1px dashed var(--primary)">
+                    <label style="color:var(--primary);margin-bottom:8px">🎓 Carte Étudiante / Certificat
+                        (Obligatoire)</label>
+                    <input type="file" id="studIdCard" accept="image/*,.pdf" required style="font-size:0.8rem" />
+                </div>
+
+                <div class="field-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="studPass" placeholder="Min 6 car. avec chiffre et symbole" required
+                        autocomplete="new-password" />
+                    <span class="field-error" id="studPassErr"></span>
+                    <div class="pwd-strength" id="studPwdStrength" style="display:none">
+                        <div class="pwd-bar">
+                            <div class="pwd-fill" id="studPwdFill"></div>
+                        </div>
+                        <span id="studPwdLabel"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Créer mon compte Étudiant</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SME SIGNUP -->
+    <div id="screen-signup-sme" class="screen screen-auth">
+        <div class="auth-header">
+            <button class="btn-back" id="signupSmeBack">←</button>
+            <h2>Profil PME / Pro</h2>
+        </div>
+        <div class="auth-body">
+            <form id="signupSmeForm" class="form-stack">
+                <div class="field-group">
+                    <label>Nom de l'entreprise ou structure</label>
+                    <input type="text" id="smeCompanyName" placeholder="Ex: Ivoire Events SARL" required
+                        autocomplete="organization" />
+                </div>
+                <div class="field-group">
+                    <label>Nom du contact</label>
+                    <input type="text" id="smeContactName" placeholder="Votre nom complet" required inputmode="text"
+                        autocomplete="name" pattern="[A-Za-zÀ-ÿ\s\-']+" title="Lettres uniquement" />
+                    <span class="field-error" id="smeContactErr"></span>
+                </div>
+                <div class="field-group">
+                    <label>Téléphone pro</label>
+                    <input type="tel" id="smePhone" placeholder="07 00 00 00 00" required inputmode="numeric"
+                        maxlength="10" autocomplete="tel" />
+                    <span class="field-error" id="smePhoneErr"></span>
+                </div>
+                <!-- Docs -->
+                <div class="field-group"
+                    style="background:var(--bg);padding:12px;border-radius:var(--radius-sm);border:1px dashed var(--success)">
+                    <label style="color:var(--success);margin-bottom:8px">🏢 Registre de Commerce (RCCM) ou CI</label>
+                    <input type="file" id="smeDoc" accept="image/*,.pdf" required style="font-size:0.8rem" />
+                </div>
+
+                <div class="field-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="smePass" placeholder="Min 6 car. avec chiffre et symbole" required
+                        autocomplete="new-password" />
+                    <span class="field-error" id="smePassErr"></span>
+                    <div class="pwd-strength" id="smePwdStrength" style="display:none">
+                        <div class="pwd-bar">
+                            <div class="pwd-fill" id="smePwdFill"></div>
+                        </div>
+                        <span id="smePwdLabel"></span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" style="background:var(--success)">Demander
+                    l'ouverture du compte</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SME VERIFICATION SCREEN -->
+    <div id="screen-sme-verification" class="screen screen-auth">
+        <div class="auth-body" style="text-align:center;justify-content:center;">
+            <div style="font-size:4rem;margin-bottom:20px;color:var(--warn)">⏳</div>
+            <h2 style="font-family:var(--font-heading);margin-bottom:16px;">Vérification en cours...</h2>
+            <p style="color:var(--text2);margin-bottom:30px;line-height:1.6">
+                Merci de nous avoir rejoints ! Vos documents administratifs sont en cours d'examen par notre équipe de
+                conformité.
+                Une fois validé (délai max 24h), vous pourrez publier des missions.
+            </p>
+            <div
+                style="margin-bottom:40px;padding:16px;background:var(--warn-l);color:#B45309;border-radius:var(--radius-sm);font-size:0.85rem">
+                Statut : En attente de validation manuelle
+            </div>
+
+            <button class="btn btn-outline btn-full" id="smeVerifyBypass">Continuer (Bypass Démo) →</button>
+        </div>
+    </div>
+
+    <!-- ====================== OTP SCREEN ====================== -->
+    <div id="screen-otp" class="screen screen-auth">
+        <div class="auth-header">
+            <button class="btn-back" id="otpBack">←</button>
+            <h2>Vérification SMS</h2>
+        </div>
+        <div class="auth-body" style="text-align:center">
+            <div class="auth-hero">
+                <span>📱</span>
+                <h3>Code de vérification</h3>
+                <p id="otpSubtitle">Un code à 4 chiffres a été envoyé au <strong id="otpPhone">--</strong></p>
+            </div>
+            <!-- 4-digit OTP inputs -->
+            <div class="otp-boxes" id="otpBoxes">
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="otp0" />
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="otp1" />
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="otp2" />
+                <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="otp3" />
+            </div>
+            <p class="field-error" id="otpError" style="text-align:center;margin:12px 0"></p>
+            <button class="btn btn-primary btn-full" id="otpVerifyBtn" style="margin-top:8px">✅ Vérifier le
+                code</button>
+            <button class="btn btn-ghost btn-full" id="otpResendBtn" style="margin-top:8px">Renvoyer le code</button>
+            <p style="font-size:0.72rem;color:var(--text3);margin-top:16px">🎮 <em>Mode démo : le code est
+                    <strong>1234</strong></em></p>
+        </div>
+    </div>
+
+    <!-- ====================== APP SHELL ====================== -->
+    <div id="app-shell" style="display:none">
+
+        <!-- TOP HEADER -->
+        <header class="app-header" id="appHeader">
+            <div class="header-left">
+                <div class="header-logo">⚡ Mon Gombo</div>
+                <div class="header-location" id="headerLocation">
+                    <span class="loc-icon">📍</span>
+                    <span id="locText">Cocody, Abidjan</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="header-notif" id="notifBtn" title="Notifications">
+                    <span class="notif-dot"></span>🔔
+                </button>
+                <button class="header-avatar" id="headerAvatar">KA</button>
+            </div>
+        </header>
+
+        <!-- SCREEN: HOME / DISCOVERY -->
+        <div id="screen-home" class="app-screen active">
+            <div class="home-hero">
+                <div class="home-greeting" id="homeGreeting">Bonjour, Kouamé 👋</div>
+                <div class="home-sub">Trouve ta prochaine mission en quelques secondes</div>
+
+                <!-- Search -->
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Rechercher une mission..." />
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-wrap">
+                <div class="filters-scroll" id="filtersScroll">
+                    <button class="filter-chip active" data-cat="all">Tout</button>
+                    <button class="filter-chip" data-cat="livraison">🛵 Livraison</button>
+                    <button class="filter-chip" data-cat="menage">🧹 Ménage</button>
+                    <button class="filter-chip" data-cat="courses">🛒 Courses</button>
+                    <button class="filter-chip" data-cat="jardinage">🌿 Jardinage</button>
+                    <button class="filter-chip" data-cat="demenagement">📦 Déménagement</button>
+                    <button class="filter-chip" data-cat="digital">💻 Digital</button>
+                    <button class="filter-chip" data-cat="garde">👶 Garde</button>
+                    <button class="filter-chip" data-cat="autre">✨ Autre</button>
+                </div>
+                <div class="filter-row">
+                    <select id="filterDist" class="filter-select">
+                        <option value="all">📍 Toutes distances</option>
+                        <option value="1">
+                            < 1 km</option>
+                        <option value="3">
+                            < 3 km</option>
+                        <option value="5">
+                            < 5 km</option>
+                    </select>
+                    <select id="filterReward" class="filter-select">
+                        <option value="all">💰 Tous montants</option>
+                        <option value="1000">1 000+ FCFA</option>
+                        <option value="2000">2 000+ FCFA</option>
+                        <option value="5000">5 000+ FCFA</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Stats bar -->
+            <div class="quick-stats">
+                <div class="qs-item">
+                    <span class="qs-num" id="qs-jobs">24</span>
+                    <span class="qs-label">missions près de toi</span>
+                </div>
+                <div class="qs-divider"></div>
+                <div class="qs-item">
+                    <span class="qs-num" id="qs-new">8 🔥</span>
+                    <span class="qs-label">nouvelles auj.</span>
+                </div>
+                <div class="qs-divider"></div>
+                <div class="qs-item">
+                    <span class="qs-num">⚡ 30s</span>
+                    <span class="qs-label">pour postuler</span>
+                </div>
+            </div>
+
+            <!-- Featured / Urgent -->
+            <div class="section-head">
+                <span class="section-title">🔥 Urgentes</span>
+                <button class="see-all" data-cat="all" id="seeAllBtn">Voir tout →</button>
+            </div>
+            <div class="jobs-scroll" id="urgentScroll"></div>
+
+            <!-- All jobs -->
+            <div class="section-head" style="margin-top:8px">
+                <span class="section-title">📋 Toutes les missions</span>
+                <span class="jobs-count" id="jobsCountBadge"></span>
+            </div>
+            <div class="jobs-grid" id="jobsGrid"></div>
+            <div class="empty-state hidden" id="emptyState">
+                <div class="empty-icon">🔍</div>
+                <div class="empty-title">Aucune mission trouvée</div>
+                <div class="empty-sub">Essaie d'autres filtres ou revenez plus tard</div>
+            </div>
+        </div>
+
+        <!-- SCREEN: JOB DETAIL -->
+        <div id="screen-detail" class="app-screen">
+            <div class="detail-header">
+                <button class="btn-back-app" id="detailBack">←</button>
+                <span>Détail de la mission</span>
+                <button class="detail-share" id="detailShare">↗</button>
+            </div>
+            <div id="detailContent" class="detail-content"></div>
+        </div>
+
+        <!-- SCREEN: POST JOB -->
+        <div id="screen-post" class="app-screen">
+            <div class="detail-header">
+                <button class="btn-back-app" id="postBack">←</button>
+                <span>Publier une mission</span>
+                <span></span>
+            </div>
+            <div class="post-body">
+                <div class="post-intro">
+                    <div class="post-intro-icon">📢</div>
+                    <div>
+                        <div class="post-intro-title">Publier une mission</div>
+                        <div class="post-intro-sub">Trouvez quelqu'un rapidement près de vous</div>
+                    </div>
+                </div>
+                <form id="postForm" class="form-stack">
+                    <div class="field-group">
+                        <label>Titre de la mission *</label>
+                        <input type="text" id="postTitle" placeholder="ex: Livraison de colis à Cocody" required />
+                    </div>
+                    <div class="field-group">
+                        <label>Catégorie *</label>
+                        <select id="postCat" required>
+                            <option value="">Choisir une catégorie</option>
+                            <option value="livraison">🛵 Livraison</option>
+                            <option value="menage">🧹 Ménage</option>
+                            <option value="courses">🛒 Courses</option>
+                            <option value="jardinage">🌿 Jardinage</option>
+                            <option value="demenagement">📦 Déménagement</option>
+                            <option value="digital">💻 Digital</option>
+                            <option value="garde">👶 Garde</option>
+                            <option value="autre">✨ Autre</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label>Description *</label>
+                        <textarea id="postDesc" rows="4"
+                            placeholder="Décrivez la mission en détail : ce qu'il faut faire, matériel requis, etc."
+                            required></textarea>
+                    </div>
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label>Rémunération (FCFA) *</label>
+                            <input type="number" id="postReward" placeholder="2000" min="500" required />
+                        </div>
+                        <div class="field-group">
+                            <label>Durée estimée</label>
+                            <select id="postDuration">
+                                <option>30 min</option>
+                                <option>1h</option>
+                                <option>2h</option>
+                                <option>3h</option>
+                                <option>Demi-journée</option>
+                                <option>Journée</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label>Localisation *</label>
+                        <input type="text" id="postLoc" list="ci-cities" autocomplete="off"
+                            placeholder="ex: Cocody Riviera 3, Abidjan" required />
+                    </div>
+                    <div class="field-group">
+                        <label>Date souhaitée</label>
+                        <input type="date" id="postDate" />
+                    </div>
+                    <div class="field-group">
+                        <label>Nombre de personnes</label>
+                        <select id="postCount">
+                            <option>1 personne</option>
+                            <option>2 personnes</option>
+                            <option>3 personnes</option>
+                            <option>4+ personnes</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Publier la mission 🚀</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SCREEN: DASHBOARD -->
+        <div id="screen-dashboard" class="app-screen">
+            <div class="dash-header">
+                <div class="dash-title">Mon tableau de bord</div>
+                <div class="dash-period">Février 2026</div>
+            </div>
+            <div class="dash-body" id="dashBody"></div>
+        </div>
+
+        <!-- SCREEN: PROFILE -->
+        <div id="screen-profile" class="app-screen">
+            <div class="profile-header-section" id="profileHeader"></div>
+            <div class="profile-body" id="profileBody"></div>
+        </div>
+
+        <!-- BOTTOM NAV -->
+        <nav class="bottom-nav" id="bottomNav">
+            <button class="nav-item active" data-screen="home">
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        width="22" height="22">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg></span>
+                <span class="nav-label">Accueil</span>
+            </button>
+            <button class="nav-item" data-screen="post">
+                <span class="nav-icon post-btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" width="24" height="24">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg></span>
+                <span class="nav-label">Publier</span>
+            </button>
+            <button class="nav-item" data-screen="dashboard">
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        width="22" height="22">
+                        <line x1="18" y1="20" x2="18" y2="10" />
+                        <line x1="12" y1="20" x2="12" y2="4" />
+                        <line x1="6" y1="20" x2="6" y2="14" />
+                    </svg></span>
+                <span class="nav-label">Stats</span>
+            </button>
+            <button class="nav-item" data-screen="profile">
+                <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        width="22" height="22">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg></span>
+                <span class="nav-label">Profil</span>
+            </button>
+        </nav>
+
+    </div><!-- /app-shell -->
+
+    <!-- ORANGE/WAVE PAYMENT MODAL (SME POSTING) -->
+    <div class="modal-backdrop hidden" id="paymentModal">
+        <div class="modal-card">
+            <div class="modal-icon" style="background:var(--warn-l);color:var(--warn)">💳</div>
+            <div class="modal-title">Frais de Publication</div>
+            <div class="modal-sub">Choisissez un pack pour publier cette mission</div>
+            <div style="display:flex;gap:10px;margin:20px 0;">
+                <button class="btn btn-outline" id="paySingleBtn" style="flex:1;flex-direction:column;padding:12px">
+                    <span style="font-weight:700;font-size:1.1rem;color:var(--text1)">500 FCFA</span>
+                    <span style="font-size:0.75rem">1 offre</span>
+                </button>
+                <button class="btn btn-outline" id="payPackBtn"
+                    style="flex:1;flex-direction:column;padding:12px;border-color:var(--primary);background:var(--primary-l)">
+                    <span style="font-weight:700;font-size:1.1rem;color:var(--primary)">1000 FCFA</span>
+                    <span style="font-size:0.75rem;color:var(--primary)">3 offres (Populaire)</span>
+                </button>
+            </div>
+            <button class="btn btn-primary btn-full" id="confirmPaymentBtn">Payer avec Wave / Orange ⚡</button>
+            <button class="btn btn-ghost btn-full" id="cancelPaymentBtn" style="margin-top:8px">Annuler</button>
+        </div>
+    </div>
+
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- APPLY MODAL -->
+    <div class="modal-backdrop hidden" id="applyModal">
+        <div class="modal-card">
+            <div class="modal-icon" id="modalIcon">🎉</div>
+            <div class="modal-title" id="modalTitle">Candidature envoyée !</div>
+            <div class="modal-sub" id="modalSub">Le donneur de mission sera notifié immédiatement</div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="modalClose">Parfait 👍</button>
+                <button class="btn btn-ghost" id="modalViewDash">Voir mes candidatures</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATALIST FOR AUTOCOMPLETE -->
+    <datalist id="ci-cities">
+        <option value="Abidjan — Cocody"></option>
+        <option value="Abidjan — Yopougon"></option>
+        <option value="Abidjan — Abobo"></option>
+        <option value="Abidjan — Adjamé"></option>
+        <option value="Abidjan — Marcory"></option>
+        <option value="Abidjan — Treichville"></option>
+        <option value="Abidjan — Koumassi"></option>
+        <option value="Abidjan — Port-Bouët"></option>
+        <option value="Abidjan — Plateau"></option>
+        <option value="Bouaké"></option>
+        <option value="Daloa"></option>
+        <option value="Yamoussoukro"></option>
+        <option value="San-Pédro"></option>
+        <option value="Korhogo"></option>
+        <option value="Man"></option>
+        <option value="En ligne (Télétravail)"></option>
+    </datalist>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
