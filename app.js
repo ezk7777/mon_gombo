@@ -1110,4 +1110,5 @@ function renderJobsGrid() {
     if (!job) return;
     appState.currentJob = job; // set for the modal
     handleApply(job);
-  }
+  }}
+  
